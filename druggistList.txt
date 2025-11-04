@@ -1,8 +1,8 @@
 Felipe,C,1064356981,felpbec,theOther
-Axel,T,1057980717,ashe,broreceta
+Axel,T,1057980717,ashe,coco
 Julian,T,56897413549,julio,balatro
 elPepe,T,3246248242,PEPESUPREMO,1987
-juan,T,3535353,TENJO,feliprox
+juan,T,3535353,tenjo,tenjo
 Pedro,C,10383453,peter1,peter2
 pepe,C,321321321,pepes,231
 pepe ,t,21312,pepe,ewqw

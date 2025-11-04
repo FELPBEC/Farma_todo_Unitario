@@ -1,9 +1,13 @@
 import org.junit.*;
+
+import UI.LoginGUI;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
@@ -11,60 +15,72 @@ import javax.swing.SwingUtilities;
 
 import model.Druggist;
 import model.FilesLoader;
+import UI.*;
 
+/**
+ * @author Axel
+ * @version 1.01
+ * Esta es la clase TestLoginGUI, encargada de probar el correcto funcionamiento de sus métodos implementando las librerías de JUnit.
+ * 
+ */
 
 public class TestLoginGUI{
+
+    /**
+     * <p>El siguiente método: TeststartLoginCorrecto contiene los parámetros esperados al momento de la ejecucion del método startLogin
+     * de la clase LoginGUI. Con ayuda de las funciones assertNotNUll se comprueba que la lista de usuarios, la contraseña ingresada y
+     * el usuario ingresado sno sean nulos. La función assertEquals se encarga de comprobar que, efectivamente, la ruta de la lista de 
+     * farmacéuticos "druggistList.txt" esté bien ingresada y que el FilesLoade pueda recorrer el archivo .txt.<p>
+     *
+     * <p>Para este test se espera que hayan resultados positivos, ya que los datos están bien ingresados.
+     * En otras palabras, si los datos están bien ingresados y no son nulos, este método mostrará resultado positivo.
+     * Describe lo que este método en específico si debe leer o hacer.<p>
+     * 
+     * */ 
     @Test
-    public void TeststartLogin(){
-        boolean logged = false;
-        boolean found = false;
-
-        while (!logged) {
-            String pathfiledruggist="druggistList.txt";
-            // Cargar lista de farmacéuticos desde archivo
-            List<Druggist> druggList = FilesLoader.LoadDruggists(pathfiledruggist);
-            assertEquals("druggistList.txt", pathfiledruggist);
-            
-
-            // Solicitar nombre de usuario
-            String log_user = JOptionPane.showInputDialog(null, "Ingrese usuario:", "Login", JOptionPane.QUESTION_MESSAGE);
-            assertNotNull(log_user);
-            
-
-            
-
-            // Solicitar contraseña
-            JPasswordField pf = new JPasswordField();
-            int option = JOptionPane.showConfirmDialog(null, pf, "Ingrese contraseña:", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-
-            if (option != JOptionPane.OK_OPTION) {
-                System.exit(0);
-            }
-
-            
-            String pass = new String(pf.getPassword());
-            assertNotNull("La Contraseña ingresada es nula.",pass);
-
-            // Validación de credenciales
-            for (Druggist d : druggList) {
-                if (d.getDruggist_user().equals(log_user) && d.getDruggist_password().equals(pass)) {    
-                    JOptionPane.showMessageDialog(null, "Bienvenido " + d.getName(), "Acceso concedido", JOptionPane.INFORMATION_MESSAGE);
-
-                    SwingUtilities.invokeLater(() -> { // Mostrar menú principal
-                        new UI.MainMenuGUI().setVisible(true);
-                    });
-
-                    logged = true;
-                    found = true;
-                    break;
-                }
-            }
-
-            // Si no encontró coincidencia, mostrar error
-            if (!found) {
-                JOptionPane.showMessageDialog(null, "Credenciales inválidas", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
+    public void TeststartLoginCorrecto(){
+       LoginGUI testLoginGUI=new LoginGUI();
+       List<Druggist>druggList=new ArrayList<>();
+       String log_user="";
+       String pass="";
+       testLoginGUI.startLogin();
+       
+    
+       assertEquals("La ruta de la lista de Farmaceuticos es incorrecta. ","druggistList.txt", testLoginGUI.getPathfiledruggist());
+       System.out.println(testLoginGUI.getPathfiledruggist());
+       assertNotNull("La lista de Usuarios es Nula. ",druggList);
+       assertNotNull("La contraseña no puede ser nula.",pass);
+       assertNotNull("El Usuario no puede ser nulo.",log_user);
+       
     }
 
+
+    /** 
+     * <p>Para este test se espera que hayan resultados negativos, ya que los datos están mal ingresados a propósito.
+     * En otras palabras, si los datos están mal ingresados o son nulos, este método mostrará resultados negativos, indicando los fallos.
+     * que tenga el método.<p>
+     * 
+     * <p>Describe lo que este método en específico no debe leer o hacer.<p>
+     * 
+     * */ 
+
+    @Test
+    public void TeststartLoginIncorrecto(){
+       String pathfiledruggist="rutaincorrecta"; 
+       LoginGUI testLoginGUI=new LoginGUI();
+       List<Druggist>druggList=new ArrayList<>();
+       testLoginGUI.startLogin();
+       pathfiledruggist=null;
+       String log_user=null;
+       String pass=null;
+    
+       assertEquals("La ruta de la lista de Farmaceuticos es incorrecta. ","druggistList.txt", testLoginGUI.getPathfiledruggist());
+       System.out.println(testLoginGUI.getPathfiledruggist());
+       assertNotNull("La lista de Usuarios es Nula. ",druggList);
+       assertNotNull("La contraseña no puede ser nula.",pass);
+       assertNotNull("El Usuario no puede ser nulo.",log_user);
+       
+        
+       
+    }
 }

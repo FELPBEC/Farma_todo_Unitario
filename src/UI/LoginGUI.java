@@ -35,16 +35,34 @@ public class LoginGUI {
      * 
      * El programa finalizará si el usuario cancela el ingreso de credenciales.
      */
+    public String pathfiledruggist="druggistList.txt";
+    
+    public List<Druggist> getDruggistList() {
+        return druggistList;
+    }
+
+    public void setDruggistList(List<Druggist> druggistList) {
+        this.druggistList = druggistList;
+    }
+
+    public String getPathfiledruggist() {
+        return pathfiledruggist;
+    }
+
+    public void setPathfiledruggist(String pathfiledruggist) {
+        this.pathfiledruggist = pathfiledruggist;
+    }
+
 
     
     public static void startLogin() {
-        String pathfiledruggist="druggistList.txt";
-
+        
+        
         boolean logged = false;
         boolean found = false;
 
         while (!logged) {
-
+            String pathfiledruggist="druggistList.txt";
             // Cargar lista de farmacéuticos desde archivo
             List<Druggist> druggList = FilesLoader.LoadDruggists(pathfiledruggist);
 
@@ -87,3 +105,4 @@ public class LoginGUI {
         }
     }
 }
+    
