@@ -29,8 +29,10 @@ public class Client extends Person {
      * @param pro_amount            Describe la cantidad de unidades de un producto que un cliente solicita
      */
 
-    public Client(String name, char doc_type, String doc_num, int pro_amount) {
+    public Client(String name, char doc_type, String doc_num, int pro_amount)throws IllegalArgumentException {
         super(name, doc_type, doc_num);
+        if (pro_amount<=0) throw new IllegalArgumentException("La cantidad de unidades de un producto no puede ser nula o cero");
+        this.pro_amount=pro_amount;
     }
     /**Obtiene la cantidad de unidades del producto que el cliente solicita.
      * 
@@ -45,6 +47,7 @@ public class Client extends Person {
      * @param pro_amount La nueva cantidad de unidades del producto que el cliente solicita.
     */
     public void setPro_amount(int pro_amount) {
+        if (pro_amount<=0) throw new IllegalArgumentException("La nueva cantidad no puede ser negativa o cero");
         try {
             this.pro_amount = pro_amount;
         } catch (NumberFormatException e) {
