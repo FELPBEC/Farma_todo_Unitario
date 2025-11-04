@@ -8,8 +8,7 @@ import javax.swing.JOptionPane;
 import java.util.ArrayList;
 
 public class FilesLoader{
-
-        public static List<Product> LoadProducts(String pathFile){
+        public static List<Product> LoadProducts(String pathFile)throws IllegalArgumentException{
             List<Product> products=new ArrayList<>();
 
             try(BufferedReader buffer_reader=new BufferedReader(new FileReader(pathFile))){
@@ -17,7 +16,6 @@ public class FilesLoader{
                 while ((line=buffer_reader.readLine())!=null){
 
                     String[]values=line.split(",");
-
                     int id=Integer.parseInt(values[0]);
                     String name=values[1];
                     double price=Double.parseDouble(values[2]);
@@ -30,10 +28,11 @@ public class FilesLoader{
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
-        
                 JOptionPane.showMessageDialog(null,"Error leyendo el archivo "+ e.getMessage());
-            }catch(NumberFormatException e){
-                JOptionPane.showMessageDialog(null, "Algun elemento de la lista es incorrecto"+e.getMessage());
+            }catch(NumberFormatException p){
+                JOptionPane.showMessageDialog(null, "Algun elemento de la lista es incorrecto"+p.getMessage());
+            }catch(IllegalArgumentException j){
+                throw j;
             }
             return products;
         }
@@ -57,10 +56,11 @@ public class FilesLoader{
                 }
 
             } catch (FileNotFoundException e) {
-            
                 e.printStackTrace();
             } catch (IOException e) {
                 System.out.println("Probablemente "+ e.getMessage());
+            }catch (IllegalArgumentException j){
+                System.out.println("ERROR "+j);
             }
             return druggists;
         }
